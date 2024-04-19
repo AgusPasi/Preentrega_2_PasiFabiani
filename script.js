@@ -1212,7 +1212,8 @@ function orderByName(obj) {
   let way
   do {
     way = Number(prompt("Orden ascendente o descendente\n1.Ascendente\n2.Descendente\n0.Volver al menu"))
-  } while (way !== 1 && way !== 2 && way !== 0);
+  } while (way !== 1 && way !== 2 && way !== 0)
+
   if (way === 0) return 0
   if (way === 1) {
     way = false
@@ -1235,8 +1236,50 @@ function orderByName(obj) {
   return ordered.map((el) => el.name).join("\n")
 }
 
+function listArrayObj(beasts) {
+  let final = ""
+  beasts.forEach(beast => {
+    for (const prop in beast) {
+      final += `${prop.charAt(0).toUpperCase() + prop.slice(1).toLowerCase()}: ${beast[prop]}\n`
+    }
+    final += "\n"
+  })
+  alert(final)
+}
+
+function filterByProperty(arr, prop, opc) {
+  let byType = arr.filter((el) => { return el[prop] && el[prop].toLowerCase().includes(opc) }).map((el) => {
+    return {
+      name: el.name,
+      type: el.type,
+      //desc: el.desc, Por ahora no mando la descripcion pq es muy larga y se va a hacer tedioso de leer jaja
+      loot: el.loot,
+      location: el.location,
+      weakness: el.weakness
+    }
+  })
+  if (byType.length !== 0) {
+    listArrayObj(byType)
+  } else {
+    switch (prop) {
+      case "type":
+        alert("No existe el tipo de bestia ingresado")
+        break
+      case "location":
+        alert("No existe la locacion ingresada o no hay bestias que habiten la misma")
+        break
+      case "weakness":
+        alert("No existe la debilidad ingresada o no hay bestias que lo sean")
+        break
+      default:
+        break
+    }
+  }
+}
+
 function menu(bestias) {
   let option
+  let opc = ""
   do {
     option = Number(prompt("Ingrese una opcion\n\n1.Buscar por nombre\n2.Ordenar por nombre\n3.Filtrar por tipo\n4.Filtrar por locacion\n5.Filtrar por debilidad\n6.Comparar\n7.Cantidad de bestias por locacion"))
     switch (option) {
@@ -1246,6 +1289,27 @@ function menu(bestias) {
       case 2:
         let arrayNames = orderByName(bestias)
         if (arrayNames !== 0) alert(arrayNames)
+        break
+      case 3:
+        do {
+          opc = prompt("Ingrese el tipo de bestia a buscar")
+        } while (opc === "" || !isNaN(opc))
+        filterByProperty(bestias, "type", opc.toLowerCase())
+        opc = ""
+        break
+      case 4:
+        do {
+          opc = prompt("Ingrese la locacion a buscar")
+        } while (opc === "" || !isNaN(opc))
+        filterByProperty(bestias, "location", opc.toLowerCase())
+        opc = ""
+        break
+      case 5:
+        do {
+          opc = prompt("Ingrese la debilidad a buscar")
+        } while (opc === "" || !isNaN(opc))
+        filterByProperty(bestias, "weakness", opc.toLowerCase())
+        opc = ""
         break
       default:
         break
