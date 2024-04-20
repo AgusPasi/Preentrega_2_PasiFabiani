@@ -1188,6 +1188,15 @@ let bestias = [
     image: "Bianco.png"
   }
 ]
+//creo una funcion que le agregue un id a cada objeto ya que el json de donde lo saque no lo tenia
+function addId(beasts) {
+  let c = 1
+  beasts.forEach(element => {
+    element.id = c++
+  })
+  return beasts
+}
+
 function showObject(obj) {
   let final = ""
   for (const prop in obj) {
@@ -1277,11 +1286,41 @@ function filterByProperty(arr, prop, opc) {
   }
 }
 
+function extrait(beasts) {
+  let aux = beasts.map((el) => {
+    return {
+      name: el.name,
+      id: el.id
+    }
+  })
+  let beast_list = ""
+  aux.forEach(element => {
+    beast_list += `${element.id}. ${element.name} \n`
+  })
+  return beast_list
+}
+
+function compare(beasts) {
+  let beast_list = extrait(beasts)
+  let opc = 0
+  let beast1 = []
+  for (let i = 0; i < 3; i++) {
+    do {
+      opc = Number(prompt("Elegi una bestia a comparar\n0.Terminar\n" + beast_list))
+      if (!(opc < 0 || opc >= 133 || isNaN(opc)) && opc !== 0) {
+        beast1.push(beasts.find((el) => el.id === opc))
+      }
+    } while ((opc < 0 || opc >= 133 || isNaN(opc)) && opc !== 0)
+  }
+  listArrayObj(beast1)
+}
+
 function menu(bestias) {
+  bestias = addId(bestias)
   let option
   let opc = ""
   do {
-    option = Number(prompt("Ingrese una opcion\n\n1.Buscar por nombre\n2.Ordenar por nombre\n3.Filtrar por tipo\n4.Filtrar por locacion\n5.Filtrar por debilidad\n6.Comparar\n7.Cantidad de bestias por locacion"))
+    option = Number(prompt("Ingrese una opcion\n\n1.Buscar por nombre\n2.Ordenar por nombre\n3.Filtrar por tipo\n4.Filtrar por locacion\n5.Filtrar por debilidad\n6.Comparar\n0.Salir"))
     switch (option) {
       case 1:
         searchByName(bestias)
@@ -1310,6 +1349,9 @@ function menu(bestias) {
         } while (opc === "" || !isNaN(opc))
         filterByProperty(bestias, "weakness", opc.toLowerCase())
         opc = ""
+        break
+      case 6:
+        compare(bestias)
         break
       default:
         break
