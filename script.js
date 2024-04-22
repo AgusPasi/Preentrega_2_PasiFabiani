@@ -1319,7 +1319,7 @@ function compare(beasts) {
   }
   if (beast1.length !== 0) {
     listArrayObj(beast1)
-  } else {alert("No se ha seleccionado nada, volviendo al menu")}
+  } else { alert("No se ha seleccionado nada, volviendo al menu") }
 }
 
 function menu(bestias) {
@@ -1365,5 +1365,8 @@ function menu(bestias) {
     }
   } while (option !== 0)
 }
+function main(bestias) {
+  menu(bestias)
+}
 
-menu(bestias)
+main(bestias)
