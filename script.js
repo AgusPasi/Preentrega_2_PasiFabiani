@@ -1208,8 +1208,11 @@ function showObject(obj) {
 }
 
 function searchByName(beasts) {
-  let inputBeast = prompt("Ingrese la bestia a buscar").toLowerCase()
-  let beast = beasts.find((el) => el.name.toLowerCase() === inputBeast)
+  let inputBeast = ""
+  do {
+    inputBeast = prompt("Ingrese la bestia a buscar")
+  } while (inputBeast === "" || !isNaN(inputBeast));
+  let beast = beasts.find((el) => el.name.toLowerCase() === inputBeast.toLowerCase())
   if (beast) {
     showObject(beast)
   } else {
@@ -1307,12 +1310,16 @@ function compare(beasts) {
   for (let i = 0; i < 3; i++) {
     do {
       opc = Number(prompt("Elegi una bestia a comparar\n0.Terminar\n" + beast_list))
+      if (opc === 0) { break }
       if (!(opc < 0 || opc >= 133 || isNaN(opc)) && opc !== 0) {
         beast1.push(beasts.find((el) => el.id === opc))
       }
-    } while ((opc < 0 || opc >= 133 || isNaN(opc)) && opc !== 0)
+    } while ((opc < 0 || opc >= 133 || isNaN(opc)))
+    if (opc === 0) break
   }
-  listArrayObj(beast1)
+  if (beast1.length !== 0) {
+    listArrayObj(beast1)
+  } else {alert("No se ha seleccionado nada, volviendo al menu")}
 }
 
 function menu(bestias) {
