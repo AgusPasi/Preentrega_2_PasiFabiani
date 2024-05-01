@@ -9,13 +9,13 @@ let bestias = [
     image: "Bear.png"
   },
   {
-    name: "Phanter",
+    name: "Panther",
     type: "Beasts",
     desc: "Panthers are dangerous predators found in forests and other woodlands. They are quick, agile and, like all cats, diabolically cunning. In many less-than-thoroughly-urbanized areas, folk still believe panthers are the stranded souls of those who die in their sleep. Superstition thus holds anyone perishing in this way should be dragged to the nearest woods and left there without a burial. The panther-spirit of the deceased may then devour its own body, thereby passing on to the nether realms.",
     loot: "Fur Scrap, Cured Leather, and Raw Meat",
     location: "Toussaint",
     weakness: "Beast Oil",
-    image: "Phanter.png"
+    image: "panther.png"
   },
   {
     name: "Wild Boars",
@@ -24,7 +24,7 @@ let bestias = [
     loot: "Boar Tusk, Boar Pelt,Raw Meat",
     location: "Gustfields, and Toussaint",
     weakness: "Northern Wind, Beast Oil, Igni, and Yrden",
-    image: "WildBoar.png"
+    image: "Wild_Boar.png"
   },
   {
     name: "Big Bad Wolf",
@@ -106,15 +106,6 @@ let bestias = [
     location: "Skellige, and Vildkaarl's Village",
     weakness: "Devil's Puffball, Cursed Oil, Quen, and Igni",
     image: "Berserker.png"
-  },
-  {
-    name: "Lubberkin",
-    type: "CursedOnes",
-    desc: "A lubberkin is a friendly household guardian spirit created from a botchling through Aymm Rhoin, an elven naming ritual, during which it is given a proper name and a burial under the hearth of the family estate. A lubberkin looks very similar to a botchling, though the main difference being its ghost-like, glowing, white aura and relatively passive behavior.",
-    loot: null,
-    location: null,
-    weakness: null,
-    image: "Lubberkin.png"
   },
   {
     name: "Werewolf",
@@ -411,7 +402,7 @@ let bestias = [
     loot: "Arachas Eyes, Chitinous Shell, Arachas Venom, and Lesser Red Mutagen",
     location: null,
     weakness: "Golden Oriole, and Insectoid Oil",
-    image: "arachasae.png"
+    image: "arachas.png"
   },
   {
     name: "Arachnomorphs",
@@ -540,15 +531,6 @@ let bestias = [
     image: "alghoul.png"
   },
   {
-    name: "Devourer",
-    type: "Necrophages",
-    desc: "Devourers are often called night witches, because they resemble old, ugly women and are famous for their witch-like viciousness. These creatures gorge themselves on human flesh; although they willingly eat carcasses, above all they crave flesh that is fresh and warm. Devourers hunt after dark in groups that peasants refer to as sabbaths. They like to deceive their victims and torture them, but there is no truth to the tales of their midnight flights on broomsticks and their gingerbread houses.",
-    loot: "Devourer's Blood, Necrophage Hide, Rotfiend Blood, Monster Brain, Monster Bone, Monster Heart, Monster Liver, Monster Saliva, Monster Tongue, and Monster Tooth",
-    location: "With rotfiends, near corpses",
-    weakness: "Necrophage Oil",
-    image: "devourer.png"
-  },
-  {
     name: "Drowners",
     type: "Necrophages",
     desc: "A drowner resembles a corpse dredged from the bottom of a pond. It is sickly blue or green in color, with slime and sludge oozing out of every pore and the acrid stench of rot wafting off of it. That is why it is often thought drowners - along with their more dangerous cousins: vodniks, mucknixers and drowned dead - arise from the bodies of those who drown in shallow water: lost travelers falling into bogs, children who swim too far from the shore or, in the case of vodniks, inebriated peasants who stumble off narrow swamp trails. Like so many other beliefs about monsters, this one is false. While drowners do look like humans from a distance, witchers, who have the dubious pleasure of examining them from close quarters, have reported the numerous ways in which their anatomy differs from our own. Their scaly skin, gills and dorsal fins suggest drowners and their like are an entirely foreign species. The adaptations mentioned below make drowners excellent swimmers, well-suited to the muddy waters of the ponds and lakes in which they dwell. They often cluster near human settlements, which are for them an excellent source of food. Cowardly creatures by nature, they usually stick to eating scraps they dig out of rubbish piles and animal carcasses. Yet if a lone traveler or careless fisherman strays into their territory, they turn from scavengers to fearsome predators. They can attack with lightning speed, taking their victim by surprise and pulling him into the water to drown. If not particularly hungry at the moment, they will keep their prey under the water for a few days, aging it until it grows deliciously tender and rotten. Drowners are particularly active at dusk and during the night, especially if the rain is falling - at such times they will even leave their watery homes and venture inland.",
@@ -612,15 +594,6 @@ let bestias = [
     image: "Mourntart.png"
   },
   {
-    name: "Mucknixer",
-    type: "Necrophages",
-    desc: "A drowner resembles a corpse dredged from the bottom of a pond. It is sickly blue or green in color, with slime and sludge oozing out of every pore and the acrid stench of rot wafting off of it. That is why it is often thought drowners -along with their more dangerous cousins: vodniks, mucknixers and drowned dead — arise from the bodies of those who drown in shallow water: lost travelers falling into bogs, children who swim too far from the shore or, in the case of vodniks, inebriated peasants who stumble off narrow swamp trails.",
-    loot: "Monster Saliva, Drowner Tongue, and Drowner Brain",
-    location: "Swamps and riverbanks in Velen",
-    weakness: "Necrophage Oil and Igni",
-    image: "mucknixer.png"
-  },
-  {
     name: "Rotfiend",
     type: "Necrophages",
     desc: "Rotfiends resemble decomposing human bodies that have been stripped of their skin. Their presence is given away by the overwhelming stench of the rot which gives them their name. Devourers are a particularly dangerous kind of rotfiend marked by an insatiable appetite for human flesh. Rotfiends and devourers were once rarities, but in the present age of constant warfare and violence they have become a veritable plague, particularly around battlefields and in disease - stricken areas. Though they feed mainly on carrion, they will at times attack the living. They usually feed in large groups and thus present a danger to lone travelers - especially considering their speed, which is more than a match for a horse at full gallop. The rotfiend's decomposing body is filled with gasses which are poisonous even to those who, like witchers, are immune to most other toxins. These emissions are also highly flammable, meaning any spark, not to mention a carelessly-cast Igni sign, can lead to an explosion. This is particularly likely after a rotfiend dies, when its body thrashes around in uncontrollable tremors. Rotfiends and devourers feed in the twilight hours and at night, when they become much more dangerous than during the day.",
@@ -645,7 +618,7 @@ let bestias = [
     loot: "Wight Ear, Wight Hair, Wight Saliva Gland, Wight Trophy, Fork, Disgusting Wight Key",
     location: "Toussaint",
     weakness: "Necrophage Oil, Igni, and Yrden",
-    image: "Spotted Wight.png"
+    image: "spotted.png"
   },
   {
     name: "Water Hag",
@@ -936,9 +909,9 @@ let bestias = [
     image: "barghest.png"
   },
   {
-    name: "Beann'shies",
+    name: "Banshee",
     type: "Specters",
-    desc: "Old gossips claim beann'shies are the spirits of women stuck between life and death due to traumatic experiences. Their wails and howls are considered ill omens of imminent, inevitable death, though they are said not to attack the living themselves. Most often they appear in the form of pale, tear-streaked women with shriveled faces and wrinkled, corpse-like bodies.",
+    desc: "Old gossips claim banshees are the spirits of women stuck between life and death due to traumatic experiences. Their wails and howls are considered ill omens of imminent, inevitable death, though they are said not to attack the living themselves. Most often they appear in the form of pale, tear-streaked women with shriveled faces and wrinkled, corpse-like bodies.",
     loot: "Essence of Wraith, Specter Dust, Infused Dust, and Lunar Shards",
     location: "Toussaint",
     weakness: "Specter Oil",
@@ -1104,7 +1077,7 @@ let bestias = [
     loot: null,
     location: "Toussaint",
     weakness: null,
-    image: "eretein.png"
+    image: "dettlaff_vampire.png"
   },
   {
     name: "Ekkimaras",
@@ -1220,33 +1193,7 @@ function searchByName(beasts) {
   }
 }
 
-function orderByName(obj) {
-  let way
-  do {
-    way = Number(prompt("Orden ascendente o descendente\n1.Ascendente\n2.Descendente\n0.Volver al menu"))
-  } while (way !== 1 && way !== 2 && way !== 0)
 
-  if (way === 0) return 0
-  if (way === 1) {
-    way = false
-  } else if (way === 2) {
-    way = true
-  }
-
-  let ordered = obj.sort((a, b) => {
-    if (a.name > b.name) {
-      return 1
-    } else if (a.name < b.name) {
-      return -1
-    } else {
-      return 0
-    }
-  })
-  if (way) {
-    ordered.reverse()
-  }
-  return ordered.map((el) => el.name).join("\n")
-}
 
 function listArrayObj(beasts) {
   let final = ""
@@ -1369,4 +1316,67 @@ function main(bestias) {
   menu(bestias)
 }
 
-main(bestias)
+/* main(bestias) */
+///aca falta poder volver a mostrar todo sin ordenar
+function orderByName(obj, way) {
+  let ordered = obj.sort((a, b) => {
+    if (a.name > b.name) {
+      return 1
+    } else if (a.name < b.name) {
+      return -1
+    } else {
+      return 0
+    }
+  })
+  if (way === "z-a") {
+    ordered.reverse()
+  }
+
+  renderizarBestias(ordered)
+}
+
+
+function filtrarBestias(bestias) {
+  let inputSearch = document.getElementById("buscador")
+  return bestias.filter((el) => el.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
+}
+
+function renderizarBestias(bestias) {
+  let beastContainer = document.getElementById("beastContainer")
+  beastContainer.innerHTML = ""
+
+  bestias.forEach(el => {
+    let beastCard = document.createElement("div")
+    beastCard.classList.add("tarjeta")
+    beastCard.innerHTML = `
+    <h3>${el.name}</h3>
+    <div class=contenedor-img>
+    <img style=height: 250px;  width:250px; src=./images/${el.image} />
+    </div>
+    <h5>Type: ${el.type}</h5>
+   
+    <p>Loot: ${el.loot}</p>
+    <p>Location: ${el.location}</p>
+    <p>Weakness: ${el.weakness}</p>
+    `
+    beastContainer.appendChild(beastCard)
+  })
+}
+
+function filtraRenderizarBestias(bestias) {
+  let filteredBeasts = filtrarBestias(bestias)
+  renderizarBestias(filteredBeasts)
+}
+
+function principal(bestias) {
+
+  let btnSearch = document.getElementById("btnBuscar")
+  btnSearch.addEventListener("click", () => filtraRenderizarBestias(bestias))
+
+  let selectOrder = document.getElementById("order")
+  selectOrder.addEventListener("change", () => orderByName(bestias, selectOrder.value))
+
+  renderizarBestias(bestias)
+}
+
+principal(bestias)
