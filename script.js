@@ -545,7 +545,7 @@ let bestias = [
     desc: "Particularly strong and dangerous drowners are known as the drowned dead. Simple people see no difference between the drowner and the drowned dead - encountering either of them is equally deadly. We might suppose, though, that the most gloomy legends concern the drowned dead rather than drowners.",
     loot: null,
     location: "Kaer Morhen Valley, Novigrad, Skellige, and Velen",
-    weakness: null,
+    weakness: "Igni",
     image: "Drowdead.png"
   },
   {
@@ -761,7 +761,7 @@ let bestias = [
     desc: "The devil Fugas held a very prestigious and responsible position during the Crones' sabbath: that of goon restricting access to the peak. He in no way resembled Torque, the irritating but harmless deovel Geralt and I had encountered many, many years prior. Fugas' size resembled that of a somewhat overgrown troll, and he likewise displayed a troll's lack of subtlety. There was not a jot of mischievous puck or cunning verbal trickster about this devil. Instead, he carried out his task with the commitment and professionalism of a Novigrad bouncer. Trying to stop Geralt, though, turned out to be Fugas' dumbest and final idea, ending both his life and his flourishing career in the Crones' employ.",
     loot: null,
     location: null,
-    weakness: null,
+    weakness: "Aard",
     image: "fugas.png"
   },
   {
@@ -770,7 +770,7 @@ let bestias = [
     desc: "Godlings (sometimes mistaken for lutin) are woodland creatures dwelling in burrows and moss-covered hollow stumps on the outskirts of human settlements. They are similar to children in behavior and appearance, and, like children, delight in mischief. Godlings are deeply rooted in their home territory and perform acts of care and guardianship to those dwelling near their burrows. They watch over people as well as animals, but, shy creatures by nature, they try to do so while remaining unseen. Godlings are drawn to joy and innocence, and so delight in the company of children and usually only show themselves to the young. These hard - working and clever creatures gladly perform small services for those in their care, asking only for respect and payment in the form of food or cast - off tools in return. They are easily offended by churlish, ungrateful or simply rude behavior. Godlings also treasure their peace and quiet. When the village a godling watches over becomes too populous or its inhabitants forget the old ways, it will abandon its burrow for good and walk off to destinations unknown.",
     loot: null,
     location: null,
-    weakness: null,
+    weakness: "Igni",
     image: "godling.png"
   },
   {
@@ -1076,7 +1076,7 @@ let bestias = [
     desc: "Dettlaff is a higher vampire and one of the most terrifying creatures the world has ever known. Some vampires of his sort live among men easily and inconspicuously, sometimes even gaining the respect and admiration of their community. Yet even the most civilized vampire can be incredibly dangerous if provoked, and Dettlaff... Dettlaff was far from civilized. When in his two - legged form, Dettlaff strikes in surprising and unique ways, so one must be extremely alert and attentive. His razor - sharp claws, wielded with great strength and precision, are his chief weapons, yet he can also wield weapons of human devising with extraordinary skill. Like all higher vampires, Dettlaff can turn into fog and envelop opponents. When fighting a vampire in this form, one must watch out for magic puddles and attacks from the air. When wounded, Detlaff tends to assume his winged form, using these powerful appendages to stun his foes near effortlessly. One must remember higher vampires are immortal creatures and thus do not fear for their lives while fighting, meaning they take every risk. They are able to turn invisible and can regenerate strength during combat. All in all, they are supremely difficult foes, even for a witcher.",
     loot: null,
     location: "Toussaint",
-    weakness: null,
+    weakness: "null",
     image: "dettlaff_vampire.png"
   },
   {
@@ -1312,12 +1312,9 @@ function menu(bestias) {
     }
   } while (option !== 0)
 }
-function main(bestias) {
-  menu(bestias)
-}
+//Aca arranca lo nuevo
+const obtainBeastsLS = () => JSON.parse(localStorage.getItem("bestiasComp")) || []
 
-/* main(bestias) */
-///aca falta poder volver a mostrar todo sin ordenar
 function orderByName(obj, way) {
   let ordered = obj.sort((a, b) => {
     if (a.name > b.name) {
@@ -1338,7 +1335,32 @@ function orderByName(obj, way) {
 
 function filtrarBestias(bestias) {
   let inputSearch = document.getElementById("buscador")
-  return bestias.filter((el) => el.name.toLowerCase().includes(inputSearch.value.toLowerCase()))
+  return bestias.filter((el) => el.name.toLowerCase().includes(inputSearch.value.toLowerCase()) || el.type.toLowerCase().includes(inputSearch.value.toLowerCase()))
+}
+
+function compareBeasts(e, beasts) {
+
+  let compareArr = obtainBeastsLS()
+  let checkBox = e.target
+  let beastId = Number(checkBox.id.substring(7))
+  let selectedBeast = beasts.find(beast => beast.id === beastId)
+
+  if (compareArr.length > 2) {
+    checkBox.checked = false
+  }
+  if (checkBox.checked) {
+    compareArr.push(selectedBeast)
+    localStorage.setItem("bestiasComp", JSON.stringify(compareArr))
+  } else {
+    compareArr = compareArr.filter(beast => beast.id !== beastId)
+    localStorage.setItem("bestiasComp", JSON.stringify(compareArr))
+  }
+
+  let btnCompare = document.getElementById("btnCompare")
+  if (compareArr.length >= 2) {
+    btnCompare.classList.replace("notDisplay", "nowDisplay")
+  } else { btnCompare.classList.replace("nowDisplay", "notDisplay") }
+
 }
 
 function renderizarBestias(bestias) {
@@ -1348,19 +1370,34 @@ function renderizarBestias(bestias) {
   bestias.forEach(el => {
     let beastCard = document.createElement("div")
     beastCard.classList.add("tarjeta")
+    beastCard.setAttribute("data-aos", "fade-up")
     beastCard.innerHTML = `
-    <h3>${el.name}</h3>
     <div class=contenedor-img>
-    <img style=height: 250px;  width:250px; src=./images/${el.image} />
+    <img style=height: 250px;  width:250px; src=./assets/images/${el.image} />
     </div>
+    <h3>${el.name}</h3>
     <h5>Type: ${el.type}</h5>
-   
     <p>Loot: ${el.loot}</p>
     <p>Location: ${el.location}</p>
     <p>Weakness: ${el.weakness}</p>
+    <button type="button" class="button-white mt-auto">Ver Mas</button>
+    <div class=checkContainer>
+    <label for=compare${el.id}>Comparar</label>
+    <input type="checkbox" id="compare${el.id}" class=checkBeast>
+    </div>
     `
+
     beastContainer.appendChild(beastCard)
+
+    let checkBeast = document.getElementById("compare" + el.id)
+    checkBeast.addEventListener("change", (e) => compareBeasts(e, bestias))
   })
+
+  /*   let menu = document.getElementById("menu")
+    let count = document.createElement("div")
+    menu.innerHTML = ""
+    count.innerHTML = `<p>${bestias.length} resultados</p>`
+    menu.appendChild(count) */
 }
 
 function filtraRenderizarBestias(bestias) {
@@ -1368,13 +1405,55 @@ function filtraRenderizarBestias(bestias) {
   renderizarBestias(filteredBeasts)
 }
 
+function filterRenderEnter(beasts, e) {
+  e.key === "Enter" && renderizarBestias(filtrarBestias(beasts))
+}
+
+function renderCompare() {
+ //ocultar el panel de control y mostrar un boton de volver atras para borrar el LS y renderizar todas las bestias
+  let bestiasLS = obtainBeastsLS()
+  let main = document.getElementById("beastContainer")
+  main.innerHTML = ""
+
+  bestiasLS.forEach(el => {
+    let beastContainer = document.createElement("div")
+    beastContainer.classList.add("tarjeton")
+    beastContainer.innerHTML = `
+    <div class=contenedor-img>
+    <img style=height: 250px;  width:250px; src=./assets/images/${el.image} />
+    </div>
+    <h3>${el.name}</h3>
+    <h5>Type: ${el.type}</h5>
+    <p>Description: ${el.desc}</p>
+    <p>Loot: ${el.loot}</p>
+    <p>Location: ${el.location}</p>
+    <p>Weakness: ${el.weakness}</p>
+    `
+
+    main.appendChild(beastContainer)
+  })
+
+}
+
 function principal(bestias) {
+
+  addId(bestias)
+
+  document.addEventListener('DOMContentLoaded', function () {
+    AOS.init();
+  });
 
   let btnSearch = document.getElementById("btnBuscar")
   btnSearch.addEventListener("click", () => filtraRenderizarBestias(bestias))
 
   let selectOrder = document.getElementById("order")
   selectOrder.addEventListener("change", () => orderByName(bestias, selectOrder.value))
+
+  let inputSearch = document.getElementById("buscador")
+  inputSearch.addEventListener("keypress", (e) => filterRenderEnter(bestias, e))
+
+  let btnCompare = document.getElementById("btnCompare")
+  btnCompare.addEventListener("click", () => renderCompare())
 
   renderizarBestias(bestias)
 }
