@@ -13,11 +13,13 @@
 
 <body>
     <div class="control-panel">
-        <div class="busqueda">
+        <div class="busqueda" id="panelBusqueda">
             <input type="text" id="buscador" placeholder="Ingresar bestia o locacion">
-            <button type="button" id="btnBuscar">Buscar</button>
+            <button type="button" id="btnBuscar" class="boton btn-panel">Buscar</button>
         </div>
+        <button type="button" id="btnCompare" class="notDisplay boton btn-panel">Comparar</button>
         <div class="ordenar-b">
+            <button type="button" id="btnVolver" class="boton btn-panel notDisplay">Volver</button>
             <select name="ordenar" id="order">
                 <option value="default">Seleccionar un orden</option>
                 <option value="a-z">A - Z</option>
@@ -25,7 +27,7 @@
             </select>
         </div>
     </div>
-    <button type="button" id="btnCompare" class="notDisplay">Comparar</button>
+    
     <div id="menu">
     </div>
     <section class="main" id="beastContainer">

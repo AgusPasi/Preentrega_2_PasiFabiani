@@ -1358,8 +1358,8 @@ function compareBeasts(e, beasts) {
 
   let btnCompare = document.getElementById("btnCompare")
   if (compareArr.length >= 2) {
-    btnCompare.classList.replace("notDisplay", "nowDisplay")
-  } else { btnCompare.classList.replace("nowDisplay", "notDisplay") }
+    btnCompare.classList.replace("notDisplay", "stickyButton")
+  } else { btnCompare.classList.replace("stickyButton", "notDisplay") }
 
 }
 
@@ -1410,7 +1410,18 @@ function filterRenderEnter(beasts, e) {
 }
 
 function renderCompare() {
- //ocultar el panel de control y mostrar un boton de volver atras para borrar el LS y renderizar todas las bestias
+  let divSearch = document.getElementById("panelBusqueda")
+  divSearch.classList.toggle("notDisplay")
+
+  let ordenar = document.getElementById("order")
+  ordenar.classList.toggle("notDisplay")
+
+  let volver = document.getElementById("btnVolver")
+  volver.classList.toggle("nowDisplay")
+
+  let btnCompare = document.getElementById("btnCompare")
+  btnCompare.classList.replace("stickyButton","notDisplay")
+
   let bestiasLS = obtainBeastsLS()
   let main = document.getElementById("beastContainer")
   main.innerHTML = ""
@@ -1435,6 +1446,21 @@ function renderCompare() {
 
 }
 
+function turnBack(bestias){
+  localStorage.removeItem("bestiasComp")
+  
+  let divSearch = document.getElementById("panelBusqueda")
+  divSearch.classList.toggle("notDisplay")
+
+  let selectO = document.getElementById("order")
+  selectO.classList.toggle("notDisplay")
+
+  let btnVolver = document.getElementById("btnVolver")
+  btnVolver.classList.toggle("nowDisplay")
+  
+  renderizarBestias(bestias)
+}
+
 function principal(bestias) {
 
   addId(bestias)
@@ -1454,6 +1480,12 @@ function principal(bestias) {
 
   let btnCompare = document.getElementById("btnCompare")
   btnCompare.addEventListener("click", () => renderCompare())
+
+  let btnVolver = document.getElementById("btnVolver")
+  btnVolver.addEventListener("click", () => turnBack(bestias))
+
+
+
 
   renderizarBestias(bestias)
 }
