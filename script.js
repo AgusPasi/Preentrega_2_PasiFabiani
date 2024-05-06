@@ -1170,176 +1170,41 @@ function addId(beasts) {
   return beasts
 }
 
-/* function showObject(obj) {
-  let final = ""
-  for (const prop in obj) {
-    if (prop !== 'image') {
-      final += `${prop.charAt(0).toUpperCase() + prop.slice(1).toLowerCase()} : ${obj[prop]} \n\n`
-    }
-  }
-  alert(final)
-} */
-
-/* function searchByName(beasts) {
-  let inputBeast = ""
-  do {
-    inputBeast = prompt("Ingrese la bestia a buscar")
-  } while (inputBeast === "" || !isNaN(inputBeast))
-  let beast = beasts.find((el) => el.name.toLowerCase() === inputBeast.toLowerCase())
-  if (beast) {
-    showObject(beast)
-  } else {
-    alert("Bestia no encontrada")
-  }
-} */
-
-
-
-/* function listArrayObj(beasts) {
-  let final = ""
-  beasts.forEach(beast => {
-    for (const prop in beast) {
-      final += `${prop.charAt(0).toUpperCase() + prop.slice(1).toLowerCase()}: ${beast[prop]}\n`
-    }
-    final += "\n"
-  })
-  alert(final)
-} */
-
-/* function filterByProperty(arr, prop, opc) {
-  let byType = arr.filter((el) => { return el[prop] && el[prop].toLowerCase().includes(opc) }).map((el) => {
-    return {
-      name: el.name,
-      type: el.type,
-      //desc: el.desc, Por ahora no mando la descripcion pq es muy larga y se va a hacer tedioso de leer jaja
-      loot: el.loot,
-      location: el.location,
-      weakness: el.weakness
-    }
-  })
-  if (byType.length !== 0) {
-    listArrayObj(byType)
-  } else {
-    switch (prop) {
-      case "type":
-        alert("No existe el tipo de bestia ingresado")
-        break
-      case "location":
-        alert("No existe la locacion ingresada o no hay bestias que habiten la misma")
-        break
-      case "weakness":
-        alert("No existe la debilidad ingresada o no hay bestias que lo sean")
-        break
-      default:
-        break
-    }
-  }
-} */
-
-/* function extrait(beasts) {
-  let aux = beasts.map((el) => {
-    return {
-      name: el.name,
-      id: el.id
-    }
-  })
-  let beast_list = ""
-  aux.forEach(element => {
-    beast_list += `${element.id}. ${element.name} \n`
-  })
-  return beast_list
-} */
-
-/* function compare(beasts) {
-  let beast_list = extrait(beasts)
-  let opc = 0
-  let beast1 = []
-  for (let i = 0; i < 3; i++) {
-    do {
-      opc = Number(prompt("Elegi una bestia a comparar\n0.Terminar\n" + beast_list))
-      if (opc === 0) { break }
-      if (!(opc < 0 || opc >= 133 || isNaN(opc)) && opc !== 0) {
-        beast1.push(beasts.find((el) => el.id === opc))
-      }
-    } while ((opc < 0 || opc >= 133 || isNaN(opc)))
-    if (opc === 0) break
-  }
-  if (beast1.length !== 0) {
-    listArrayObj(beast1)
-  } else { alert("No se ha seleccionado nada, volviendo al menu") }
-} */
-/* 
-function menu(bestias) {
-  bestias = addId(bestias)
-  let option
-  let opc = ""
-  do {
-    option = Number(prompt("Ingrese una opcion\n\n1.Buscar por nombre\n2.Ordenar por nombre\n3.Filtrar por tipo\n4.Filtrar por locacion\n5.Filtrar por debilidad\n6.Comparar\n0.Salir"))
-    switch (option) {
-      case 1:
-        searchByName(bestias)
-        break
-      case 2:
-        let arrayNames = orderByName(bestias)
-        if (arrayNames !== 0) alert(arrayNames)
-        break
-      case 3:
-        do {
-          opc = prompt("Ingrese el tipo de bestia a buscar")
-        } while (opc === "" || !isNaN(opc))
-        filterByProperty(bestias, "type", opc.toLowerCase())
-        opc = ""
-        break
-      case 4:
-        do {
-          opc = prompt("Ingrese la locacion a buscar")
-        } while (opc === "" || !isNaN(opc))
-        filterByProperty(bestias, "location", opc.toLowerCase())
-        opc = ""
-        break
-      case 5:
-        do {
-          opc = prompt("Ingrese la debilidad a buscar")
-        } while (opc === "" || !isNaN(opc))
-        filterByProperty(bestias, "weakness", opc.toLowerCase())
-        opc = ""
-        break
-      case 6:
-        compare(bestias)
-        break
-      default:
-        break
-    }
-  } while (option !== 0)
-} */
-//Aca arranca lo nuevo
 const obtainBeastsLS = () => JSON.parse(localStorage.getItem("bestiasComp")) || []
+const obtainOrderSS = () => JSON.parse(sessionStorage.getItem("currentOrder")) || []
 
 function orderByName(obj, way) {
-  let ordered = obj.sort((a, b) => {
-    if (a.name > b.name) {
-      return 1
-    } else if (a.name < b.name) {
-      return -1
-    } else {
-      return 0
+  let copyObj = [...obj]
+  let ordered = []
+  if (way !== "default") {
+    ordered = copyObj.sort((a, b) => {
+      if (a.name > b.name) {
+        return 1
+      } else if (a.name < b.name) {
+        return -1
+      } else {
+        return 0
+      }
+    })
+    if (way === "z-a") {
+      ordered.reverse()
     }
-  })
-  if (way === "z-a") {
-    ordered.reverse()
+    renderizarBestias(ordered)
+  } else {
+    renderizarBestias(obj)
   }
+  sessionStorage.setItem("currentOrder", JSON.stringify(way))
 
-  renderizarBestias(ordered)
+
 }
 
 
-/* function filtrarBestias(bestias) {
+function filtrarBestias(bestias) {
   let inputSearch = document.getElementById("buscador")
   return bestias.filter((el) => el.name.toLowerCase().includes(inputSearch.value.toLowerCase()) || el.type.toLowerCase().includes(inputSearch.value.toLowerCase()))
-} */
+}
 
 function compareBeasts(e, beasts) {
-
   let compareArr = obtainBeastsLS()
   let checkBox = e.target
   let beastId = Number(checkBox.id.substring(7))
@@ -1367,43 +1232,44 @@ function renderizarBestias(bestias) {
   let beastContainer = document.getElementById("beastContainer")
   beastContainer.innerHTML = ""
 
-  bestias.forEach(el => {
+  bestias.forEach(({ id, name, type, loot, location, weakness, image }) => {
     let beastCard = document.createElement("div")
     beastCard.classList.add("tarjeta")
     beastCard.setAttribute("data-aos", "fade-up")
     beastCard.innerHTML = `
     <div class=contenedor-img>
-    <img style=height: 250px;  width:250px; src=./assets/images/${el.image} />
+    <img style=height: 250px;  width:250px; src=./assets/images/${image} />
     </div>
-    <h3>${el.name}</h3>
-    <h5>Type: ${el.type}</h5>
-    <p>Loot: ${el.loot}</p>
-    <p>Location: ${el.location}</p>
-    <p>Weakness: ${el.weakness}</p>
-    <button type="button" class="button-white mt-auto">Ver Mas</button>
+    <h3>${name}</h3>
+    <h5>Type: ${type}</h5>
+    <p>Loot: ${loot}</p>
+    <p>Location: ${location}</p>
+    <p>Weakness: ${weakness}</p>
     <div class=checkContainer>
-    <label for=compare${el.id}>Comparar</label>
-    <input type="checkbox" id="compare${el.id}" class=checkBeast>
+    <label for=compare${id}>Comparar</label>
+    <input type="checkbox" id="compare${id}" class=checkBeast>
     </div>
     `
+    // <button type="button" class="button-white mt-auto">Ver Mas</button>
 
     beastContainer.appendChild(beastCard)
 
-    let checkBeast = document.getElementById("compare" + el.id)
+    let checkBeast = document.getElementById("compare" + id)
     checkBeast.addEventListener("change", (e) => compareBeasts(e, bestias))
   })
 
-    let menu = document.getElementById("menu")
-    let count = document.createElement("div")
-    menu.innerHTML = ""
-    count.innerHTML = `<p>${bestias.length} resultados</p>`
-    menu.appendChild(count)
+  let menu = document.getElementById("menu")
+  let count = document.createElement("div")
+  menu.innerHTML = ""
+  count.innerHTML = `<p>${bestias.length} resultados</p>`
+  menu.appendChild(count)
 }
 
-function filtraRenderizarBestias(bestias) {
+/* function filtraRenderizarBestias(bestias) {
   let filteredBeasts = filterRenderByTextAndSign(bestias)
   renderizarBestias(filteredBeasts)
-}
+} */
+
 
 function filterRenderEnter(beasts, e) {
   e.key === "Enter" && filterRenderByTextAndSign(beasts)
@@ -1414,7 +1280,7 @@ function renderCompare() {
   divSearch.classList.toggle("notDisplay")
 
   let divSignals = document.getElementById("filter-signals")
-  divSignals.classList.replace("filter-sign","notDisplay")
+  divSignals.classList.replace("filter-sign", "notDisplay")
 
   let ordenar = document.getElementById("order")
   ordenar.classList.toggle("notDisplay")
@@ -1432,19 +1298,19 @@ function renderCompare() {
   let main = document.getElementById("beastContainer")
   main.innerHTML = ""
 
-  bestiasLS.forEach(el => {
+  bestiasLS.forEach(({ name, type, loot, location, desc, weakness, image }) => {
     let beastContainer = document.createElement("div")
     beastContainer.classList.add("tarjeton")
     beastContainer.innerHTML = `
     <div class=contenedor-img>
-    <img style=height: 250px;  width:250px; src=./assets/images/${el.image} />
+    <img style=height: 250px;  width:250px; src=./assets/images/${image} />
     </div>
-    <h3>${el.name}</h3>
-    <h5>Type: ${el.type}</h5>
-    <p>Description: ${el.desc}</p>
-    <p>Loot: ${el.loot}</p>
-    <p>Location: ${el.location}</p>
-    <p>Weakness: ${el.weakness}</p>
+    <h3>${name}</h3>
+    <h5>Type: ${type}</h5>
+    <p>Description: ${desc}</p>
+    <p>Loot: ${loot}</p>
+    <p>Location: ${location}</p>
+    <p>Weakness: ${weakness}</p>
     `
 
     main.appendChild(beastContainer)
@@ -1459,7 +1325,7 @@ function turnBack(bestias) {
   divSearch.classList.toggle("notDisplay")
 
   let divSignals = document.getElementById("filter-signals")
-  divSignals.classList.replace("notDisplay","filter-sign")
+  divSignals.classList.replace("notDisplay", "filter-sign")
 
   let selectO = document.getElementById("order")
   selectO.classList.toggle("notDisplay")
@@ -1473,18 +1339,10 @@ function turnBack(bestias) {
   renderizarBestias(bestias)
 }
 
-/* function filterRenderBySign(e, bestias) {
-  let sign = e.target
-  sign.classList.toggle("selected")
 
-  let selectedFilters = Array.from(document.getElementsByClassName("btn-filter selected")).map(btn => btn.dataset.filter)
-
-  let filteredBeasts = bestias.filter(beast => selectedFilters.every(filter => beast.weakness.toLowerCase().includes(filter)))
-
-  renderizarBestias(filteredBeasts)
-} */
 
 function filterRenderByTextAndSign(bestias, e) {
+
   if (e) {
     let sign = e.target
     sign.classList.toggle("selected")
@@ -1501,12 +1359,22 @@ function filterRenderByTextAndSign(bestias, e) {
 
     return textFilterPassed && signalFiltersPassed
   })
+  let currentOrder = obtainOrderSS()
+  if (currentOrder) {
 
-  renderizarBestias(filteredBeasts)
+    orderByName(filteredBeasts, currentOrder)
+  } else {
+
+    renderizarBestias(filteredBeasts)
+  }
+
+  return filteredBeasts
 }
 
 
 function principal(bestias) {
+
+  sessionStorage.setItem("currentOrder", JSON.stringify("default"))
 
   addId(bestias)
 
@@ -1518,7 +1386,10 @@ function principal(bestias) {
   btnSearch.addEventListener("click", () => filterRenderByTextAndSign(bestias))
 
   let selectOrder = document.getElementById("order")
-  selectOrder.addEventListener("change", () => orderByName(bestias, selectOrder.value))
+  selectOrder.addEventListener("change", () => {
+    let filteredBeasts = filterRenderByTextAndSign(bestias)
+    orderByName(filteredBeasts, selectOrder.value)
+  })
 
   let inputSearch = document.getElementById("buscador")
   inputSearch.addEventListener("keypress", (e) => filterRenderEnter(bestias, e))
