@@ -105,19 +105,64 @@ h3 {
 .control-panel {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
+  background: black;
 }
 
 .control-panel .busqueda input,
-.ordenar-b select, .btn-panel {
+.ordenar-b select,
+.btn-panel {
   background-color: #f7f6f6;
   border-radius: 0.375rem;
   padding: 8px 15px;
 }
 
-.sticky-button {
-    position: sticky;
-    bottom: 20px;
-    right: 20px;
-    z-index: 999;
+.div-compare {
+  position: fixed;
+  margin-left: 10px;
+  padding-left: 10px;
+  top: 500px;
+}
+
+.div-compare button {
+  margin-left: 40px;
+}
+
+.filter-sign {
+  display: flex;
+  align-items: center;
+}
+
+.weak {
+  margin-right: 12px;
+}
+
+.signal {
+  text-align: center;
+}
+
+.signal img {
+  width: 60px;
+  height: 60px;
+}
+
+.signal-name {
+  display: block;
+  font-size: 13px;
+}
+
+.btn-filter:hover,
+.selected {
+  cursor: pointer;
+  background: #A90101;
+  border-radius: 5px;
+}
+
+#menu{
+  padding: 10px 10px 0 10px ;
+}
+
+#menu p{
+  margin: 0;
 }

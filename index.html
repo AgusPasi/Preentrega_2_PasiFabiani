@@ -14,10 +14,34 @@
 <body>
     <div class="control-panel">
         <div class="busqueda" id="panelBusqueda">
-            <input type="text" id="buscador" placeholder="Ingresar bestia o locacion">
+            <input type="text" id="buscador" placeholder="Ingresar bestia o tipo">
             <button type="button" id="btnBuscar" class="boton btn-panel">Buscar</button>
+
         </div>
-        <button type="button" id="btnCompare" class="notDisplay boton btn-panel">Comparar</button>
+        <div id="filter-signals" class="filter-sign">
+            <span class="weak">Debil contra:</span>
+            <div class="signal">
+                <img class="btn-filter" data-filter="aard" src="./assets/images/aard.png" title="Aard">
+                <span class="signal-name">Aard</span>
+            </div>
+            <div class="signal">
+                <img class="btn-filter" data-filter="igni" src="./assets/images/igni.png" title="Igni">
+                <span class="signal-name">Igni</span>
+            </div>
+            <div class="signal">
+                <img class="btn-filter" data-filter="axii" src="./assets/images/axii.png" title="Axii">
+                <span class="signal-name">Axii</span>
+            </div>
+            <div class="signal">
+                <img class="btn-filter" data-filter="yrden" src="./assets/images/yrden.png" title="Yrden">
+                <span class="signal-name">Yrden</span>
+
+            </div>
+            <div class="signal">
+                <img class="btn-filter" data-filter="quen" src="./assets/images/quen.png" title="Quen">
+                <span class="signal-name">Quen</span>
+            </div>
+        </div>
         <div class="ordenar-b">
             <button type="button" id="btnVolver" class="boton btn-panel notDisplay">Volver</button>
             <select name="ordenar" id="order">
@@ -27,7 +51,10 @@
             </select>
         </div>
     </div>
-    
+    <div class="div-compare">
+        <button type="button" id="btnCompare" class="notDisplay boton btn-panel">Comparar</button>
+    </div>
+
     <div id="menu">
     </div>
     <section class="main" id="beastContainer">

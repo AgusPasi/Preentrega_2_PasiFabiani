@@ -1170,7 +1170,7 @@ function addId(beasts) {
   return beasts
 }
 
-function showObject(obj) {
+/* function showObject(obj) {
   let final = ""
   for (const prop in obj) {
     if (prop !== 'image') {
@@ -1178,24 +1178,24 @@ function showObject(obj) {
     }
   }
   alert(final)
-}
+} */
 
-function searchByName(beasts) {
+/* function searchByName(beasts) {
   let inputBeast = ""
   do {
     inputBeast = prompt("Ingrese la bestia a buscar")
-  } while (inputBeast === "" || !isNaN(inputBeast));
+  } while (inputBeast === "" || !isNaN(inputBeast))
   let beast = beasts.find((el) => el.name.toLowerCase() === inputBeast.toLowerCase())
   if (beast) {
     showObject(beast)
   } else {
     alert("Bestia no encontrada")
   }
-}
+} */
 
 
 
-function listArrayObj(beasts) {
+/* function listArrayObj(beasts) {
   let final = ""
   beasts.forEach(beast => {
     for (const prop in beast) {
@@ -1204,9 +1204,9 @@ function listArrayObj(beasts) {
     final += "\n"
   })
   alert(final)
-}
+} */
 
-function filterByProperty(arr, prop, opc) {
+/* function filterByProperty(arr, prop, opc) {
   let byType = arr.filter((el) => { return el[prop] && el[prop].toLowerCase().includes(opc) }).map((el) => {
     return {
       name: el.name,
@@ -1234,9 +1234,9 @@ function filterByProperty(arr, prop, opc) {
         break
     }
   }
-}
+} */
 
-function extrait(beasts) {
+/* function extrait(beasts) {
   let aux = beasts.map((el) => {
     return {
       name: el.name,
@@ -1248,9 +1248,9 @@ function extrait(beasts) {
     beast_list += `${element.id}. ${element.name} \n`
   })
   return beast_list
-}
+} */
 
-function compare(beasts) {
+/* function compare(beasts) {
   let beast_list = extrait(beasts)
   let opc = 0
   let beast1 = []
@@ -1267,8 +1267,8 @@ function compare(beasts) {
   if (beast1.length !== 0) {
     listArrayObj(beast1)
   } else { alert("No se ha seleccionado nada, volviendo al menu") }
-}
-
+} */
+/* 
 function menu(bestias) {
   bestias = addId(bestias)
   let option
@@ -1311,7 +1311,7 @@ function menu(bestias) {
         break
     }
   } while (option !== 0)
-}
+} */
 //Aca arranca lo nuevo
 const obtainBeastsLS = () => JSON.parse(localStorage.getItem("bestiasComp")) || []
 
@@ -1333,10 +1333,10 @@ function orderByName(obj, way) {
 }
 
 
-function filtrarBestias(bestias) {
+/* function filtrarBestias(bestias) {
   let inputSearch = document.getElementById("buscador")
   return bestias.filter((el) => el.name.toLowerCase().includes(inputSearch.value.toLowerCase()) || el.type.toLowerCase().includes(inputSearch.value.toLowerCase()))
-}
+} */
 
 function compareBeasts(e, beasts) {
 
@@ -1358,8 +1358,8 @@ function compareBeasts(e, beasts) {
 
   let btnCompare = document.getElementById("btnCompare")
   if (compareArr.length >= 2) {
-    btnCompare.classList.replace("notDisplay", "stickyButton")
-  } else { btnCompare.classList.replace("stickyButton", "notDisplay") }
+    btnCompare.classList.replace("notDisplay", "nowDisplay")
+  } else { btnCompare.classList.replace("nowDisplay", "notDisplay") }
 
 }
 
@@ -1393,25 +1393,28 @@ function renderizarBestias(bestias) {
     checkBeast.addEventListener("change", (e) => compareBeasts(e, bestias))
   })
 
-  /*   let menu = document.getElementById("menu")
+    let menu = document.getElementById("menu")
     let count = document.createElement("div")
     menu.innerHTML = ""
     count.innerHTML = `<p>${bestias.length} resultados</p>`
-    menu.appendChild(count) */
+    menu.appendChild(count)
 }
 
 function filtraRenderizarBestias(bestias) {
-  let filteredBeasts = filtrarBestias(bestias)
+  let filteredBeasts = filterRenderByTextAndSign(bestias)
   renderizarBestias(filteredBeasts)
 }
 
 function filterRenderEnter(beasts, e) {
-  e.key === "Enter" && renderizarBestias(filtrarBestias(beasts))
+  e.key === "Enter" && filterRenderByTextAndSign(beasts)
 }
 
 function renderCompare() {
   let divSearch = document.getElementById("panelBusqueda")
   divSearch.classList.toggle("notDisplay")
+
+  let divSignals = document.getElementById("filter-signals")
+  divSignals.classList.replace("filter-sign","notDisplay")
 
   let ordenar = document.getElementById("order")
   ordenar.classList.toggle("notDisplay")
@@ -1420,7 +1423,10 @@ function renderCompare() {
   volver.classList.toggle("nowDisplay")
 
   let btnCompare = document.getElementById("btnCompare")
-  btnCompare.classList.replace("stickyButton","notDisplay")
+  btnCompare.classList.replace("nowDisplay", "notDisplay")
+
+  let resultados = document.getElementById("menu")
+  resultados.classList.toggle("notDisplay")
 
   let bestiasLS = obtainBeastsLS()
   let main = document.getElementById("beastContainer")
@@ -1446,31 +1452,70 @@ function renderCompare() {
 
 }
 
-function turnBack(bestias){
+function turnBack(bestias) {
   localStorage.removeItem("bestiasComp")
-  
+
   let divSearch = document.getElementById("panelBusqueda")
   divSearch.classList.toggle("notDisplay")
+
+  let divSignals = document.getElementById("filter-signals")
+  divSignals.classList.replace("notDisplay","filter-sign")
 
   let selectO = document.getElementById("order")
   selectO.classList.toggle("notDisplay")
 
   let btnVolver = document.getElementById("btnVolver")
   btnVolver.classList.toggle("nowDisplay")
-  
+
+  let resultados = document.getElementById("menu")
+  resultados.classList.toggle("notDisplay")
+
   renderizarBestias(bestias)
 }
+
+/* function filterRenderBySign(e, bestias) {
+  let sign = e.target
+  sign.classList.toggle("selected")
+
+  let selectedFilters = Array.from(document.getElementsByClassName("btn-filter selected")).map(btn => btn.dataset.filter)
+
+  let filteredBeasts = bestias.filter(beast => selectedFilters.every(filter => beast.weakness.toLowerCase().includes(filter)))
+
+  renderizarBestias(filteredBeasts)
+} */
+
+function filterRenderByTextAndSign(bestias, e) {
+  if (e) {
+    let sign = e.target
+    sign.classList.toggle("selected")
+  }
+
+  let inputSearch = document.getElementById("buscador").value.toLowerCase().trim()
+
+  let selectedFilters = Array.from(document.querySelectorAll(".btn-filter.selected")).map(btn => btn.dataset.filter)
+
+  let filteredBeasts = bestias.filter(beast => {
+    let textFilterPassed = beast.name.toLowerCase().includes(inputSearch) || beast.type.toLowerCase().includes(inputSearch)
+
+    let signalFiltersPassed = selectedFilters.every(filter => beast.weakness.toLowerCase().includes(filter))
+
+    return textFilterPassed && signalFiltersPassed
+  })
+
+  renderizarBestias(filteredBeasts)
+}
+
 
 function principal(bestias) {
 
   addId(bestias)
 
   document.addEventListener('DOMContentLoaded', function () {
-    AOS.init();
-  });
+    AOS.init()
+  })
 
   let btnSearch = document.getElementById("btnBuscar")
-  btnSearch.addEventListener("click", () => filtraRenderizarBestias(bestias))
+  btnSearch.addEventListener("click", () => filterRenderByTextAndSign(bestias))
 
   let selectOrder = document.getElementById("order")
   selectOrder.addEventListener("change", () => orderByName(bestias, selectOrder.value))
@@ -1484,8 +1529,10 @@ function principal(bestias) {
   let btnVolver = document.getElementById("btnVolver")
   btnVolver.addEventListener("click", () => turnBack(bestias))
 
-
-
+  let btsFilter = document.getElementsByClassName("btn-filter")
+  for (const btnFilter of btsFilter) {
+    btnFilter.addEventListener("click", (e) => filterRenderByTextAndSign(bestias, e))
+  }
 
   renderizarBestias(bestias)
 }
